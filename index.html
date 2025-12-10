@@ -12,14 +12,12 @@
     />
 
     <style>
-      /* COLORS FROM YOUR SLIDES */
       :root {
         --pink: #ff7bbb;
         --beige: #f7f1e8;
         --text-dark: #222;
       }
 
-      /* GENERAL */
       body {
         margin: 0;
         font-family: "Poppins", sans-serif;
@@ -27,49 +25,64 @@
         overflow-x: hidden;
       }
 
-      /* NAVIGATION */
+      /* ===================== NAVBAR FIXED ====================== */
       header {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px 30px;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(8px);
         position: fixed;
         top: 0;
+        left: 0;
         width: 100%;
-        z-index: 10;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
         border-bottom: 1px solid #ddd;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 18px 0;
+      }
+
+      nav {
+        display: flex;
+        gap: 40px;
       }
 
       .nav-btn {
         font-size: 18px;
+        font-weight: 600;
         text-decoration: none;
         color: var(--text-dark);
-        font-weight: 600;
-        margin-left: 15px;
+        cursor: pointer;
         transition: 0.3s;
+        padding: 6px 14px;
+        border-radius: 8px;
       }
 
       .nav-btn:hover {
         color: var(--pink);
       }
 
-      /* SECTIONS */
+      .nav-btn.active {
+        background: var(--pink);
+        color: white;
+      }
+
+      /* ===================== SECTIONS ====================== */
       section {
         min-height: 100vh;
-        padding: 120px 20px 60px;
+        padding: 140px 20px 60px;
         display: none;
       }
       section.active {
         display: block;
       }
 
-      /* ===== COVER PAGE ===== */
+      /* COVER PAGE */
       .cover {
         text-align: center;
       }
 
-      /* MAGAZINE TITLE STYLE */
       .cover-title {
         font-family: "Playfair Display", serif;
         font-size: 90px;
@@ -81,7 +94,6 @@
         opacity: 0;
       }
 
-      /* Magazine-style reveal — wipes in from left */
       @keyframes titleReveal {
         0% {
           opacity: 0;
@@ -124,7 +136,6 @@
         animation-delay: 0.8s;
       }
 
-      /* Fade up animation */
       @keyframes fadeUp {
         from {
           opacity: 0;
@@ -136,7 +147,7 @@
         }
       }
 
-      /* ===== ABOUT PAGE ===== */
+      /* ABOUT PAGE */
       .about-box {
         max-width: 900px;
         margin: auto;
@@ -167,7 +178,7 @@
         }
       }
 
-      /* ===== CONTACT PAGE ===== */
+      /* CONTACT PAGE */
       .contact-box {
         max-width: 550px;
         margin: auto;
@@ -194,12 +205,16 @@
 
     <script>
       function showPage(page) {
-        document
-          .querySelectorAll("section")
-          .forEach((s) => s.classList.remove("active"));
+        document.querySelectorAll("section").forEach((s) => {
+          s.classList.remove("active");
+        });
         document.getElementById(page).classList.add("active");
 
-        // re-trigger animation on about/contact
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.dataset.page === page) btn.classList.add("active");
+        });
+
         const box = document.querySelector(
           `#${page} .about-box, #${page} .contact-box`
         );
@@ -209,12 +224,18 @@
           box.style.animation = "";
         }
       }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.addEventListener("click", () => showPage(btn.dataset.page));
+        });
+      });
     </script>
   </head>
 
   <body>
     <header>
-      <nav class="nav">
+      <nav>
         <a class="nav-btn active" data-page="cover">HOME</a>
         <a class="nav-btn" data-page="about">ABOUT ME</a>
         <a class="nav-btn" data-page="contact">CONTACT</a>
@@ -224,10 +245,7 @@
     <!-- COVER -->
     <section id="cover" class="active cover">
       <div class="cover-title">ABOUT ME</div>
-      <img
-        src="blob:https://www.messenger.com/b8b7e1e8-41c8-48bb-a661-f05b33672b7a"
-        alt="just me^^"
-      />
+      <img src="your-image-here.jpg" alt="just me^^" />
       <div class="cover-sub">Let's get to know me!</div>
     </section>
 
