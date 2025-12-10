@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me — Phia</title>
+
+    <!-- GOOGLE FONTS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* COLORS FROM YOUR SLIDES */
+      :root {
+        --pink: #ff7bbb;
+        --beige: #f7f1e8;
+        --text-dark: #222;
+      }
+
+      /* GENERAL */
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: var(--beige);
+        overflow-x: hidden;
+      }
+
+      /* NAVIGATION */
+      header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 30px;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(8px);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .nav-btn {
+        font-size: 18px;
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 600;
+        margin-left: 15px;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        color: var(--pink);
+      }
+
+      /* SECTIONS */
+      section {
+        min-height: 100vh;
+        padding: 120px 20px 60px;
+        display: none;
+      }
+      section.active {
+        display: block;
+      }
+
+      /* ===== COVER PAGE ===== */
+      .cover {
+        text-align: center;
+      }
+
+      /* MAGAZINE TITLE STYLE */
+      .cover-title {
+        font-family: "Playfair Display", serif;
+        font-size: 90px;
+        font-weight: 800;
+        color: var(--pink);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        animation: titleReveal 1.3s ease forwards;
+        opacity: 0;
+      }
+
+      /* Magazine-style reveal — wipes in from left */
+      @keyframes titleReveal {
+        0% {
+          opacity: 0;
+          transform: translateX(-80px);
+          clip-path: inset(0 100% 0 0);
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(0);
+          clip-path: inset(0 0 0 0);
+        }
+      }
+
+      .cover img {
+        width: 320px;
+        border-radius: 25px;
+        margin-top: 20px;
+        animation: imagePop 1.5s ease forwards;
+        opacity: 0;
+      }
+
+      @keyframes imagePop {
+        0% {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .cover-sub {
+        font-size: 20px;
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeUp 1.5s ease forwards;
+        animation-delay: 0.8s;
+      }
+
+      /* Fade up animation */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== ABOUT PAGE ===== */
+      .about-box {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        animation: slideUp 0.9s ease;
+      }
+
+      .about-title {
+        font-family: "Playfair Display", serif;
+        color: var(--pink);
+        font-size: 60px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== CONTACT PAGE ===== */
+      .contact-box {
+        max-width: 550px;
+        margin: auto;
+        background: white;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        animation: fadeUp 0.9s ease;
+      }
+
+      .contact-title {
+        font-family: "Playfair Display", serif;
+        color: var(--pink);
+        font-size: 50px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .social-item {
+        font-size: 22px;
+        margin: 18px 0;
+      }
+    </style>
+
+    <script>
+      function showPage(page) {
+        document
+          .querySelectorAll("section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(page).classList.add("active");
+
+        // re-trigger animation on about/contact
+        const box = document.querySelector(
+          `#${page} .about-box, #${page} .contact-box`
+        );
+        if (box) {
+          box.style.animation = "none";
+          void box.offsetWidth;
+          box.style.animation = "";
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <a class="nav-btn" href="#" onclick="showPage('cover')">HOME</a>
+      <div>
+        <a class="nav-btn" href="#" onclick="showPage('about')">ABOUT ME</a>
+        <a class="nav-btn" href="#" onclick="showPage('contact')">CONTACT</a>
+      </div>
+    </header>
+
+    <!-- COVER -->
+    <section id="cover" class="active cover">
+      <div class="cover-title">ABOUT ME</div>
+      <img
+        src="blob:https://www.messenger.com/b8b7e1e8-41c8-48bb-a661-f05b33672b7a"
+        alt="just me^^"
+      />
+      <div class="cover-sub">Let's get to know me!</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-box">
+        <div class="about-title">About Me</div>
+        <p style="font-size: 18px; line-height: 1.8">
+          Hi, I’m Franchesca Sophia Tamani, but everyone calls me Phia — and I
+          like it that way. I’m 21, born and raised in Taguig City, and a proud
+          SHS graduate with honors. I live life with a simple motto: YOLO. “Take
+          the risk or lose the chance.” My vibe is sage green — calm, soft, and
+          grounding. My hobbies shift with my mood, and yes… I do NOT eat
+          vegetables. I’m a mix of spontaneity, softness, and a little bit of
+          chaos — but in the best way. I’m still growing, exploring, and taking
+          risks. Life’s too short to play it safe.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-box">
+        <div class="contact-title">Contact Me</div>
+        <p class="social-item">📩 Email: phiacanezo@gmail.com</p>
+        <p class="social-item">📷 Instagram: @ilysopya</p>
+        <p class="social-item">🎵 TikTok: @us2qsiomairice</p>
+        <p class="social-item">📘 Facebook: Phia</p>
+      </div>
+    </section>
+  </body>
+</html>
